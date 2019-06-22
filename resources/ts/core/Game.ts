@@ -1,6 +1,6 @@
 class Game {
-    protected canvasElement: HTMLCanvasElement | undefined;
-    protected context: CanvasRenderingContext2D | null;
+    protected canvasElement: HTMLCanvasElement;
+    protected context: CanvasRenderingContext2D;
 
     public constructor(canvasElementID: string) {
         const element: HTMLCanvasElement | null = document.querySelector(canvasElementID);
@@ -14,7 +14,7 @@ class Game {
         }
 
         this.canvasElement = element;
-        this.context = this.canvasElement.getContext('2d');
+        this.context = <CanvasRenderingContext2D>this.canvasElement.getContext('2d');
     }
 
     public start() {
