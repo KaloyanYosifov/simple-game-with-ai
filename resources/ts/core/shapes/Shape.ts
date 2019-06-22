@@ -1,11 +1,11 @@
+import Victor from 'victor';
+
 abstract class Shape {
-    protected x: number;
-    protected y: number;
+    protected position: Victor;
     protected color: string;
 
     public constructor(x: number, y: number, color: string) {
-        this.x = x;
-        this.y = y;
+        this.position = new Victor(x, y);
         this.color = color;
     }
 
@@ -16,19 +16,27 @@ abstract class Shape {
     }
 
     public setX(x: number): void {
-        this.x = x;
+        this.position.x = x;
     }
 
     public setY(y: number): void {
-        this.y = y;
+        this.position.y = y;
     }
 
     public getX(): number {
-        return this.x;
+        return this.position.x;
     }
 
     public getY(): number {
-        return this.y;
+        return this.position.y;
+    }
+
+    public getPosition(): Victor {
+        return this.position;
+    }
+
+    public setVector(position: Victor) {
+        this.position = position;
     }
 };
 

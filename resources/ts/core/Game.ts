@@ -6,7 +6,7 @@ class Game {
     protected NPCS: Array<NPC> = [];
 
     public constructor() {
-        for (let index = 0; index < 1; index++) {
+        for (let index = 0; index < 1000; index++) {
             this.NPCS.push(new Dot(Math.random() * GameWindow.getWidth(), Math.random() * GameWindow.getHeight()));
         }
     }

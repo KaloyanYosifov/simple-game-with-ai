@@ -1,7 +1,9 @@
+import Victor from 'victor';
+
 class Brain {
     protected steps: number = 1;
     protected currentStep: number = 0;
-    protected directions: Array<{ x: number, y: number }> = [];
+    protected directions: Array<Victor> = [];
 
     public constructor(steps: number) {
         this.steps = steps;
@@ -11,15 +13,9 @@ class Brain {
 
     public initDirections() {
         for (let stepIndex = 0; stepIndex < this.steps; stepIndex++) {
-            const xRandomDirection = (Math.random() * 10) - 5;
-            const yRandomDirection = Math.random();
-            console.log(xRandomDirection);
+            const angle = (Math.random() * (2 * Math.PI)) - Math.PI;
 
-
-            this.directions.push({
-                x: xRandomDirection,
-                y: yRandomDirection
-            });
+            this.directions.push(new Victor(Math.cos(angle), Math.sin(angle)));
         }
     }
 

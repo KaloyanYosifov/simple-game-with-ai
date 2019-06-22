@@ -11,6 +11,7 @@
   "author": "Kaloyan Yosifov",
   "license": "GPL-3.0",
   "devDependencies": {
+    "@types/victor": "^1.1.0",
     "css-loader": "^3.0.0",
     "lite-server": "^2.5.3",
     "mini-css-extract-plugin": "^0.7.0",
@@ -23,6 +24,7 @@
   },
   "dependencies": {
     "node-sass": "^4.12.0",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "victor": "^1.1.0"
   }
 }

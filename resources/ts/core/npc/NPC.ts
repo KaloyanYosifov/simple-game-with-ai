@@ -1,12 +1,12 @@
+import Victor from 'victor';
+
 abstract class NPC {
-    protected x: number;
-    protected y: number;
-    protected velocity: number;
+    protected position: Victor;
+    protected velocity: Victor;
 
     public constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
-        this.velocity = 1;
+        this.position = new Victor(x, y);
+        this.velocity = new Victor(.5, .5);
     }
 
     /**
@@ -22,19 +22,27 @@ abstract class NPC {
     public abstract render(context: CanvasRenderingContext2D): void;
 
     public setX(x: number): void {
-        this.x = x;
+        this.position.x = x;
     }
 
     public setY(y: number): void {
-        this.y = y;
+        this.position.y = y;
     }
 
     public getX(): number {
-        return this.x;
+        return this.position.x;
     }
 
     public getY(): number {
-        return this.y;
+        return this.position.y;
+    }
+
+    public getPosition(): Victor {
+        return this.position;
+    }
+
+    public setVector(position: Victor) {
+        this.position = position;
     }
 };
 

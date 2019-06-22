@@ -14,7 +14,7 @@ class Rectangle extends Shape {
     public render(context: CanvasRenderingContext2D): void {
         context.fillStyle = this.color;
 
-        context.fillRect(this.x, this.y, this.width, this.height);
+        context.fillRect(this.getX(), this.getY(), this.width, this.height);
     }
 }
 

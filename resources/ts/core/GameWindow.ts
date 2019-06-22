@@ -29,7 +29,7 @@ class GameWindow {
         return this.context.canvas.width;
     }
 
-    public getHeight(): height {
+    public getHeight(): number {
         return this.context.canvas.height;
     }
 }

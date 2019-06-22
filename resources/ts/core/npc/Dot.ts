@@ -18,11 +18,13 @@ class Dot extends NPC {
 
     public update() {
         const acceleration = this.brain.nextDirection();
-        this.x += acceleration.x;
-        this.y += acceleration.y;
 
-        this.circle.setX(this.x);
-        this.circle.setY(this.y);
+        this.velocity = this.velocity.add(acceleration);
+        this.velocity.limit(5, 0.5);
+
+        this.position = this.position.add(this.velocity);
+
+        this.circle.setVector(this.position);
     }
 
     render(context: CanvasRenderingContext2D): void {
