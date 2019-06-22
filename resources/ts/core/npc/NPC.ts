@@ -1,19 +1,23 @@
-abstract class Shape {
+abstract class NPC {
     protected x: number;
     protected y: number;
-    protected color: string;
 
-    public constructor(x: number, y: number, color: string) {
+    public constructor(x: number, y: number) {
         this.x = x;
         this.y = y;
-        this.color = color;
     }
 
+    /**
+     * get user inputs here
+     * and update, or do something with npc
+     */
+    public abstract update(): void;
+
+    /**
+     * 
+     * render something wit this method
+     */
     public abstract render(context: CanvasRenderingContext2D): void;
-
-    public setColor(color: string): void {
-        this.color = color;
-    }
 
     public setX(x: number): void {
         this.x = x;
@@ -32,4 +36,4 @@ abstract class Shape {
     }
 };
 
-export default Shape;
+export default NPC;
