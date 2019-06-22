@@ -10,9 +10,12 @@ class Circle extends Shape {
     }
 
     public render(context: CanvasRenderingContext2D): void {
-        context.fillStyle = this.color;
 
+        context.beginPath();
         context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        context.closePath();
+
+        context.fillStyle = this.color;
         context.fill();
     }
 }
