@@ -1,10 +1,12 @@
 abstract class NPC {
     protected x: number;
     protected y: number;
+    protected velocity: number;
 
     public constructor(x: number, y: number) {
         this.x = x;
         this.y = y;
+        this.velocity = 1;
     }
 
     /**

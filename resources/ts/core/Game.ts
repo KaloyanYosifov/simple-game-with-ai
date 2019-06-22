@@ -1,26 +1,27 @@
+import GameWindow from '@gcore/GameWindow';
+import NPC from "@gcore/npc/NPC";
+import Dot from '@gcore/npc/Dot';
+
 class Game {
-    protected canvasElement: HTMLCanvasElement;
-    protected context: CanvasRenderingContext2D;
+    protected NPCS: Array<NPC> = [];
 
-    public constructor(canvasElementID: string) {
-        const element: HTMLCanvasElement | null = document.querySelector(canvasElementID);
-
-        if (!element) {
-            throw new Error('Element could not be found!');
+    public constructor() {
+        for (let index = 0; index < 1; index++) {
+            this.NPCS.push(new Dot(Math.random() * GameWindow.getWidth(), Math.random() * GameWindow.getHeight()));
         }
-
-        if (!element.tagName.match(/canvas/i)) {
-            throw new Error('You have passed an element that is not a canvas!');
-        }
-
-        this.canvasElement = element;
-        this.context = <CanvasRenderingContext2D>this.canvasElement.getContext('2d');
     }
 
     public start() {
-        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+        GameWindow.clearScreen();
 
-        window.requestAnimationFrame(this.start.bind(this))
+        GameWindow.getContext();
+
+        this.NPCS.map((npc) => {
+            npc.update();
+            npc.render(GameWindow.getContext());
+        });
+
+        window.requestAnimationFrame(this.start.bind(this));
     }
 }
 
