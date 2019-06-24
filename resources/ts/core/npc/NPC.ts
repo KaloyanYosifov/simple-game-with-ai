@@ -3,6 +3,7 @@ import Victor from 'victor';
 abstract class NPC {
     protected position: Victor;
     protected velocity: Victor;
+    protected dead: boolean = false;
 
     public constructor(x: number, y: number) {
         this.position = new Victor(x, y);
@@ -22,6 +23,10 @@ abstract class NPC {
     public abstract render(context: CanvasRenderingContext2D): void;
 
     public abstract die(): void;
+
+    public isDead(): boolean {
+        return this.dead;
+    }
 
     public setX(x: number): void {
         this.position.x = x;

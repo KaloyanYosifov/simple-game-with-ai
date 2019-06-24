@@ -10,11 +10,14 @@ class Dot extends NPC {
     protected brain: Brain;
     protected dead: boolean = false;
 
-    public constructor(x: number, y: number, color: string = 'black') {
+    public constructor(x: number, y: number, randomDirections: boolean = true, brain: Brain | null = null, color: string = 'black') {
         super(x, y);
 
         this.circle = new Circle(x, y, 10, color);
-        this.brain = new Brain(500);
+
+        // select the brain passed
+        // or create a new one
+        this.brain = brain || new Brain(randomDirections ? 500 : 1);
     }
 
     public update() {
@@ -56,6 +59,10 @@ class Dot extends NPC {
         const crossingBottomBoundry = this.getY() < 10;
 
         return crossingLeftBoundry || crossingRightBoundry || crossingTopBoundry || crossingBottomBoundry;
+    }
+
+    public getBrain(): Brain {
+        return this.brain;
     }
 }
 
