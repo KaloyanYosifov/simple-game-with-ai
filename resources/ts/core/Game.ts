@@ -7,8 +7,10 @@ class Game {
     protected goal: Dot;
 
     public constructor() {
-        this.population = new Population(300);
+        this.population = new Population(1000);
         this.goal = new Dot(GameWindow.getWidth() / 2, 20, false, null, 'red');
+
+        this.population.setGoal(this.goal.getPosition());
     }
 
     public start() {
@@ -22,10 +24,10 @@ class Game {
         context.fillText(`Generation: ${this.population.getGeneration()}`, 10, 50);
         context.closePath();
 
-        this.population.update();
-
         this.goal.update();
         this.goal.render(context);
+
+        this.population.update();
 
         window.requestAnimationFrame(this.start.bind(this));
     }

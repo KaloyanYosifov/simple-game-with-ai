@@ -46,7 +46,7 @@ class Brain {
     }
 
     public mutate(): void {
-        const mutateChance = 0.01;
+        const mutateChance = 0.10;
 
         for (let stepIndex = 0; stepIndex < this.steps; stepIndex++) {
             const randomNumber = Math.random();

@@ -2,6 +2,8 @@ import NPC from '@gcore/npc/NPC';
 import Brain from '@gcore/npc/core/Brain';
 import GameWindow from '@gcore/GameWindow';
 
+import Victor from 'victor';
+
 // shapes
 import Circle from '@gcore/shapes/Circle';
 
@@ -9,6 +11,7 @@ class Dot extends NPC {
     protected circle: Circle;
     protected brain: Brain;
     protected dead: boolean = false;
+    protected goalPosition: Victor = new Victor(0, 0);
 
     public constructor(x: number, y: number, randomDirections: boolean = true, brain: Brain | null = null, color: string = 'black') {
         super(x, y);
@@ -49,6 +52,14 @@ class Dot extends NPC {
         this.dead = true;
     }
 
+    public setGoalPosition(position: Victor) {
+        this.goalPosition = position.clone();
+    }
+
+    public distanceFromGoal(): number {
+        return this.getPosition().distance(this.goalPosition);
+    }
+
     public isCrossingWindowBoundries(): boolean {
         // crossing boundries on x axis
         const crossingLeftBoundry = this.getX() < 10;
@@ -59,6 +70,10 @@ class Dot extends NPC {
         const crossingBottomBoundry = this.getY() < 10;
 
         return crossingLeftBoundry || crossingRightBoundry || crossingTopBoundry || crossingBottomBoundry;
+    }
+
+    public setColor(color: string) {
+        this.color = color;
     }
 
     public getBrain(): Brain {
