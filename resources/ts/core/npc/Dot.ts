@@ -8,15 +8,20 @@ import Circle from '@gcore/shapes/Circle';
 class Dot extends NPC {
     protected circle: Circle;
     protected brain: Brain;
+    protected dead: boolean = false;
 
-    public constructor(x: number, y: number) {
+    public constructor(x: number, y: number, color: string = 'black') {
         super(x, y);
 
-        this.circle = new Circle(x, y, 10);
-        this.brain = new Brain(1000);
+        this.circle = new Circle(x, y, 10, color);
+        this.brain = new Brain(500);
     }
 
     public update() {
+        if (this.dead) {
+            return;
+        }
+
         const acceleration = this.brain.nextDirection();
 
         this.velocity = this.velocity.add(acceleration);
@@ -25,10 +30,32 @@ class Dot extends NPC {
         this.position = this.position.add(this.velocity);
 
         this.circle.setVector(this.position);
+
+        // if we are on the last direction from the brain
+        // kill the dot
+        if (this.brain.finishedLastDirection() || this.isCrossingWindowBoundries()) {
+            this.die();
+        }
     }
 
-    render(context: CanvasRenderingContext2D): void {
+    public render(context: CanvasRenderingContext2D): void {
         this.circle.render(context);
+    }
+
+    public die() {
+        this.dead = true;
+    }
+
+    public isCrossingWindowBoundries(): boolean {
+        // crossing boundries on x axis
+        const crossingLeftBoundry = this.getX() < 10;
+        const crossingRightBoundry = this.getX() > GameWindow.getWidth() - 10;
+
+        // crossing boundries on y axis
+        const crossingTopBoundry = this.getY() > GameWindow.getHeight() - 10;
+        const crossingBottomBoundry = this.getY() < 10;
+
+        return crossingLeftBoundry || crossingRightBoundry || crossingTopBoundry || crossingBottomBoundry;
     }
 }
 

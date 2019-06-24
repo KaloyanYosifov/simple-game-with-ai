@@ -21,6 +21,8 @@ abstract class NPC {
      */
     public abstract render(context: CanvasRenderingContext2D): void;
 
+    public abstract die(): void;
+
     public setX(x: number): void {
         this.position.x = x;
     }
