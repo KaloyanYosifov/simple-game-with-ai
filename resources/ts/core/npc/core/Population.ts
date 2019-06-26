@@ -48,17 +48,19 @@ class Population {
         let fitnessSum = 0;
 
         this.dots.map((dot) => {
-            const fitness = 1.0 - dot.distanceFromGoal();
-
-            fitnessSum += fitness;
+            fitnessSum += dot.fitness();
         });
 
         const randomFitness = Math.random() * fitnessSum;
-        let bestDot: any;
+
+        let calculatedSum = 0;
+        let parent: any;
 
         for (let index = 0; index < this.dots.length; index++) {
-            if (this.dots[index].distanceFromGoal() > randomFitness) {
-                bestDot = this.dots[0];
+            calculatedSum += this.dots[index].fitness();
+
+            if (calculatedSum > randomFitness) {
+                parent = this.dots[0];
                 break;
             }
         }
@@ -66,18 +68,34 @@ class Population {
         const newDots = [];
 
         for (let index = 0; index < this.count; index++) {
-            const bestDotBrain = bestDot.getBrain().clone();
-            bestDotBrain.mutate();
+            const parentBrain = parent.getBrain().clone();
 
-            const dot = new Dot(Math.random() * GameWindow.getWidth(), GameWindow.getHeight() - 50, true, bestDotBrain);
+            parentBrain.mutate();
+
+            const dot = new Dot(GameWindow.getWidth() / 2, GameWindow.getHeight() - 80, true, parentBrain);
+
             dot.setGoalPosition(this.goalPosition);
+
             newDots.push(dot);
+        }
+
+        let bestDot: any;
+
+        for (let index = 0; index < this.dots.length; index++) {
+            if (this.dots[index].fitness() > 0) {
+                bestDot = this.dots[index];
+                break;
+            }
         }
 
         this.dots = [];
 
         bestDot.setColor('green');
+        bestDot.setPosition(GameWindow.getWidth() / 2, GameWindow.getHeight() - 80);
+        bestDot.reset();
+
         newDots.push(bestDot);
+
 
         this.count = newDots.length;
 
@@ -93,7 +111,7 @@ class Population {
         }
 
         for (let index = 0; index < this.count; index++) {
-            const dot = new Dot(Math.random() * GameWindow.getWidth(), GameWindow.getHeight() - 50);
+            const dot = new Dot(GameWindow.getWidth() / 2, GameWindow.getHeight() - 80);
             dot.setGoalPosition(this.goalPosition);
             this.dots.push(dot);
         }

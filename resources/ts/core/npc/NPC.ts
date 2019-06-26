@@ -28,6 +28,10 @@ abstract class NPC {
         return this.dead;
     }
 
+    public setPosition(x: number, y: number) {
+        this.position = new Victor(x, y);
+    }
+
     public setX(x: number): void {
         this.position.x = x;
     }

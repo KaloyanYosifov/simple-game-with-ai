@@ -12,7 +12,7 @@ class Brain {
     }
 
     public setDirections(directions: Array<Victor>): void {
-        this.directions = directions;
+        this.directions = [...directions];
         this.steps = this.directions.length;
     }
 
@@ -45,8 +45,16 @@ class Brain {
         return clonedBrain;
     }
 
+    public getSteps(): number {
+        return this.steps;
+    }
+
+    public reset() {
+        this.currentStep = 0;
+    }
+
     public mutate(): void {
-        const mutateChance = 0.10;
+        const mutateChance = 0.01;
 
         for (let stepIndex = 0; stepIndex < this.steps; stepIndex++) {
             const randomNumber = Math.random();

@@ -36,10 +36,9 @@ class Dot extends NPC {
         this.position = this.position.add(this.velocity);
 
         this.circle.setVector(this.position);
-
         // if we are on the last direction from the brain
         // kill the dot
-        if (this.brain.finishedLastDirection() || this.isCrossingWindowBoundries()) {
+        if (this.brain.finishedLastDirection() || this.isCrossingWindowBoundries() || this.reachedGoal()) {
             this.die();
         }
     }
@@ -50,6 +49,11 @@ class Dot extends NPC {
 
     public die() {
         this.dead = true;
+    }
+
+    public reset() {
+        this.dead = false;
+        this.brain.reset();
     }
 
     public setGoalPosition(position: Victor) {
@@ -73,11 +77,25 @@ class Dot extends NPC {
     }
 
     public setColor(color: string) {
-        this.color = color;
+        this.circle.setColor(color);
     }
 
     public getBrain(): Brain {
         return this.brain;
+    }
+
+    public fitness() {
+        if (this.reachedGoal()) {
+            return 1 / 16 + 1000.0 / Math.sqrt(this.brain.getSteps());
+        }
+
+        const distanceFromGoal = this.distanceFromGoal();
+
+        return 1.0 / (distanceFromGoal * distanceFromGoal);
+    }
+
+    public reachedGoal() {
+        return this.distanceFromGoal() < 5;
     }
 }
 
