@@ -23,7 +23,7 @@
     "webpack-cli": "^3.3.4"
   },
   "dependencies": {
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "scss": "^0.2.4",
     "victor": "^1.1.0"
   }
